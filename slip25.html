@@ -1,0 +1,93 @@
+<!-- set A -->
+
+import java.io.*;
+
+class Student {
+    int rollno;
+    String name;
+    String cls;
+    double per;
+
+    void readStudent() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("Enter Roll Number: ");
+        rollno = Integer.parseInt(br.readLine());
+        System.out.print("Enter Name: ");
+        name = br.readLine();
+        System.out.print("Enter Class: ");
+        cls = br.readLine();
+        System.out.print("Enter Percentage: ");
+        per = Double.parseDouble(br.readLine());
+    }
+
+    void displayStudent() {
+        System.out.println("Roll Number: " + rollno);
+        System.out.println("Name: " + name);
+        System.out.println("Class: " + cls);
+        System.out.println("Percentage: " + per);
+    }
+
+    public static void main(String[] args) throws IOException {
+        Student s = new Student();
+        s.readStudent();
+        s.displayStudent();
+    }
+}
+
+
+<!-- set B -->
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+class StudentGUI extends JFrame implements ActionListener {
+    JTextField tName, tClass, tDisplay;
+    JCheckBox cb1, cb2, cb3;
+    JButton submit;
+
+    StudentGUI() {
+        setLayout(new FlowLayout());
+        add(new JLabel("Name:"));
+        tName = new JTextField(15);
+        add(tName);
+
+        add(new JLabel("Class:"));
+        tClass = new JTextField(15);
+        add(tClass);
+
+        add(new JLabel("Hobbies:"));
+        cb1 = new JCheckBox("Reading");
+        cb2 = new JCheckBox("Sports");
+        cb3 = new JCheckBox("Music");
+        add(cb1);
+        add(cb2);
+        add(cb3);
+
+        submit = new JButton("Submit");
+        add(submit);
+        submit.addActionListener(this);
+
+        tDisplay = new JTextField(30);
+        tDisplay.setEditable(false);
+        add(tDisplay);
+
+        setSize(400,250);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        String name = tName.getText();
+        String cls = tClass.getText();
+        String hobbies = "";
+        if(cb1.isSelected()) hobbies += "Reading ";
+        if(cb2.isSelected()) hobbies += "Sports ";
+        if(cb3.isSelected()) hobbies += "Music ";
+        tDisplay.setText("Name: " + name + ", Class: " + cls + ", Hobbies: " + hobbies);
+    }
+
+    public static void main(String[] args) {
+        new StudentGUI();
+    }
+}

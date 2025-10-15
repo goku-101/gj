@@ -1,0 +1,108 @@
+<!-- set A -->
+
+import java.util.*;
+
+class Employee {
+    String name;
+    double basicSalary;
+
+    Employee(String name, double salary) {
+        this.name = name;
+        this.basicSalary = salary;
+    }
+
+    double getSalary() {
+        return basicSalary;
+    }
+
+    void display() {
+        System.out.println("Employee Name: " + name);
+        System.out.println("Salary: " + getSalary());
+    }
+}
+
+class Manager extends Employee {
+    double TA, HRA;
+
+    Manager(String name, double salary, double TA, double HRA) {
+        super(name, salary);
+        this.TA = TA;
+        this.HRA = HRA;
+    }
+
+    double getSalary() {
+        return basicSalary + TA + HRA;
+    }
+}
+
+class EmployeeDemo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter Employee Name: ");
+        String ename = sc.nextLine();
+        System.out.print("Enter Employee Basic Salary: ");
+        double esal = sc.nextDouble();
+        Employee e = new Employee(ename, esal);
+        e.display();
+
+        sc.nextLine();
+        System.out.print("\nEnter Manager Name: ");
+        String mname = sc.nextLine();
+        System.out.print("Enter Manager Basic Salary: ");
+        double msal = sc.nextDouble();
+        System.out.print("Enter Traveling Allowance: ");
+        double ta = sc.nextDouble();
+        System.out.print("Enter House Rent Allowance: ");
+        double hra = sc.nextDouble();
+        Manager m = new Manager(mname, msal, ta, hra);
+        m.display();
+    }
+}
+
+
+<!-- set B -->
+
+import java.io.*;
+import java.util.*;
+
+class FileDirectoryDemo {
+    public static void main(String[] args) throws IOException {
+        if (args.length == 0) {
+            System.out.println("Provide a file or directory path as command line argument.");
+            return;
+        }
+
+        File f = new File(args[0]);
+        Scanner sc = new Scanner(System.in);
+
+        if (f.exists()) {
+            if (f.isDirectory()) {
+                File[] files = f.listFiles((dir, name) -> name.endsWith(".txt"));
+                if (files != null && files.length > 0) {
+                    System.out.print("Do you want to delete all text files in the directory? (yes/no): ");
+                    String choice = sc.nextLine();
+                    int count = 0;
+                    if (choice.equalsIgnoreCase("yes")) {
+                        for (File file : files) {
+                            if (file.delete()) count++;
+                        }
+                        System.out.println("Deleted " + count + " text files.");
+                    } else {
+                        System.out.println("No files deleted.");
+                    }
+                } else {
+                    System.out.println("No text files found in the directory.");
+                }
+            } else if (f.isFile()) {
+                System.out.println("File Name: " + f.getName());
+                System.out.println("Absolute Path: " + f.getAbsolutePath());
+                System.out.println("Writable: " + f.canWrite());
+                System.out.println("Readable: " + f.canRead());
+                System.out.println("File Size (bytes): " + f.length());
+                System.out.println("Last Modified: " + new Date(f.lastModified()));
+            }
+        } else {
+            System.out.println("File or directory does not exist.");
+        }
+    }
+}

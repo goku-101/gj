@@ -1,0 +1,121 @@
+<!-- set A -->
+
+import java.util.*;
+
+class Customer {
+    String name;
+    String phoneNumber;
+
+    void readCustomer(Scanner sc) {
+        System.out.print("Enter Name: ");
+        name = sc.nextLine();
+        System.out.print("Enter Phone Number: ");
+        phoneNumber = sc.nextLine();
+    }
+
+    void displayCustomer() {
+        System.out.println("Name: " + name);
+        System.out.println("Phone Number: " + phoneNumber);
+    }
+}
+
+class Depositor extends Customer {
+    int accno;
+    double balance;
+
+    void readDepositor(Scanner sc) {
+        readCustomer(sc);
+        System.out.print("Enter Account Number: ");
+        accno = sc.nextInt();
+        System.out.print("Enter Balance: ");
+        balance = sc.nextDouble();
+        sc.nextLine();
+    }
+
+    void displayDepositor() {
+        displayCustomer();
+        System.out.println("Account Number: " + accno);
+        System.out.println("Balance: " + balance);
+    }
+}
+
+class Borrower extends Depositor {
+    int loanNo;
+    double loanAmt;
+
+    void readBorrower(Scanner sc) {
+        readDepositor(sc);
+        System.out.print("Enter Loan Number: ");
+        loanNo = sc.nextInt();
+        System.out.print("Enter Loan Amount: ");
+        loanAmt = sc.nextDouble();
+        sc.nextLine();
+    }
+
+    void displayBorrower() {
+        displayDepositor();
+        System.out.println("Loan Number: " + loanNo);
+        System.out.println("Loan Amount: " + loanAmt);
+        System.out.println("----------------------------------");
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of customers: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        Borrower[] customers = new Borrower[n];
+        for (int i = 0; i < n; i++) {
+            System.out.println("Enter details of customer " + (i + 1) + ":");
+            customers[i] = new Borrower();
+            customers[i].readBorrower(sc);
+        }
+        System.out.println("\nCustomer Details:");
+        for (Borrower b : customers) b.displayBorrower();
+    }
+}
+
+
+
+<!-- set B -->
+
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+class StringOperationSwing extends JFrame implements ActionListener {
+    JTextField t1, t2, t3;
+    JButton b1, b2;
+
+    StringOperationSwing() {
+        setLayout(new FlowLayout());
+        t1 = new JTextField(10);
+        t2 = new JTextField(10);
+        t3 = new JTextField(10);
+        b1 = new JButton("Concatenate");
+        b2 = new JButton("Reverse");
+        add(t1);
+        add(t2);
+        add(t3);
+        add(b1);
+        add(b2);
+        b1.addActionListener(this);
+        b2.addActionListener(this);
+        setSize(300,150);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == b1) {
+            t3.setText(t1.getText() + t2.getText());
+        } else if (e.getSource() == b2) {
+            t3.setText(new StringBuilder(t1.getText()).reverse().toString());
+        }
+    }
+
+    public static void main(String[] args) {
+        new StringOperationSwing();
+    }
+}

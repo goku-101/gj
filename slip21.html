@@ -1,0 +1,110 @@
+<!-- set A -->
+
+import java.util.*;
+
+class InvalidDateException extends Exception {
+    InvalidDateException(String msg) {
+        super(msg);
+    }
+}
+
+class MyDate {
+    int day, month, year;
+
+    void acceptDate(Scanner sc) throws InvalidDateException {
+        System.out.print("Enter day: ");
+        day = sc.nextInt();
+        System.out.print("Enter month: ");
+        month = sc.nextInt();
+        System.out.print("Enter year: ");
+        year = sc.nextInt();
+        if (month < 1 || month > 12 || day < 1 || day > 31) {
+            throw new InvalidDateException("Invalid Date");
+        }
+        if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30) {
+            throw new InvalidDateException("Invalid Date");
+        }
+        if (month == 2) {
+            boolean leap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+            if ((leap && day > 29) || (!leap && day > 28)) {
+                throw new InvalidDateException("Invalid Date");
+            }
+        }
+    }
+
+    void displayDate() {
+        System.out.printf("Date: %02d/%02d/%04d\n", day, month, year);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        MyDate d = new MyDate();
+        try {
+            d.acceptDate(sc);
+            d.displayDate();
+        } catch (InvalidDateException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+
+
+<!-- set B -->
+
+
+import java.util.*;
+
+class Employee {
+    int id;
+    String name;
+    String deptname;
+    double salary;
+    static int count = 0;
+
+    Employee() {
+        this.id = 0;
+        this.name = "";
+        this.deptname = "";
+        this.salary = 0;
+        count++;
+    }
+
+    Employee(int id, String name, String deptname, double salary) {
+        this.id = id;
+        this.name = name;
+        this.deptname = deptname;
+        this.salary = salary;
+        count++;
+    }
+
+    static void displayCount() {
+        System.out.println("Total objects created: " + count);
+    }
+
+    void display() {
+        System.out.println("ID: " + id + ", Name: " + name + ", Department: " + deptname + ", Salary: " + salary);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of employees: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        Employee[] emp = new Employee[n];
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter ID: ");
+            int id = sc.nextInt();
+            sc.nextLine();
+            System.out.print("Enter Name: ");
+            String name = sc.nextLine();
+            System.out.print("Enter Department Name: ");
+            String dept = sc.nextLine();
+            System.out.print("Enter Salary: ");
+            double sal = sc.nextDouble();
+            sc.nextLine();
+            emp[i] = new Employee(id, name, dept, sal);
+            emp[i].display();
+            Employee.displayCount();
+        }
+    }
+}

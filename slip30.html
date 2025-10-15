@@ -1,0 +1,92 @@
+<!-- set A -->
+
+import java.util.*;
+
+class Person {
+    String personName, aadharNo, panNo;
+
+    Person(String personName, String aadharNo, String panNo) {
+        this.personName = personName;
+        this.aadharNo = aadharNo;
+        this.panNo = panNo;
+    }
+
+    void display() {
+        System.out.println("Person Name: " + this.personName);
+        System.out.println("Aadhar No: " + this.aadharNo);
+        System.out.println("PAN No: " + this.panNo);
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Person[] persons = new Person[5];
+        for(int i = 0; i < 5; i++) {
+            System.out.print("Enter Person Name: ");
+            String name = sc.nextLine();
+            System.out.print("Enter Aadhar No: ");
+            String aadhar = sc.nextLine();
+            System.out.print("Enter PAN No: ");
+            String pan = sc.nextLine();
+            persons[i] = new Person(name, aadhar, pan);
+        }
+
+        System.out.println("\nPerson Details:");
+        for(Person p : persons) {
+            p.display();
+        }
+    }
+}
+
+
+<!-- set B -->
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+class IntegerDivisionGUI extends JFrame implements ActionListener {
+    JTextField tNum1, tNum2, tResult;
+    JButton divide;
+
+    IntegerDivisionGUI() {
+        setLayout(new FlowLayout());
+        add(new JLabel("Number 1:"));
+        tNum1 = new JTextField(10);
+        add(tNum1);
+
+        add(new JLabel("Number 2:"));
+        tNum2 = new JTextField(10);
+        add(tNum2);
+
+        divide = new JButton("Divide");
+        add(divide);
+        divide.addActionListener(this);
+
+        add(new JLabel("Result:"));
+        tResult = new JTextField(10);
+        tResult.setEditable(false);
+        add(tResult);
+
+        setSize(300,200);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        try {
+            int num1 = Integer.parseInt(tNum1.getText());
+            int num2 = Integer.parseInt(tNum2.getText());
+            int res = num1 / num2;
+            tResult.setText(String.valueOf(res));
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Enter valid integers");
+        } catch (ArithmeticException ex) {
+            JOptionPane.showMessageDialog(this, "Cannot divide by zero");
+        }
+    }
+
+    public static void main(String[] args) {
+        new IntegerDivisionGUI();
+    }
+}

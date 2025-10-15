@@ -1,0 +1,102 @@
+<!-- set A -->
+
+import java.util.*;
+
+class Bank {
+    String name;
+    int accno;
+    double balance;
+
+    Bank(String n, int a, double b) {
+        name = n;
+        accno = a;
+        balance = b;
+    }
+
+    void deposit(double amt) {
+        balance += amt;
+        System.out.println("Amount Deposited: " + amt);
+    }
+
+    void withdraw(double amt) {
+        if (amt <= balance) {
+            balance -= amt;
+            System.out.println("Amount Withdrawn: " + amt);
+        } else {
+            System.out.println("Insufficient Balance");
+        }
+    }
+
+    void showBalance() {
+        System.out.println("Account No: " + accno + ", Name: " + name + ", Balance: " + balance);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter Name: ");
+        String n = sc.nextLine();
+        System.out.print("Enter Account No: ");
+        int a = sc.nextInt();
+        System.out.print("Enter Initial Balance: ");
+        double b = sc.nextDouble();
+        Bank obj = new Bank(n, a, b);
+        int ch;
+        do {
+            System.out.println("1.Deposit 2.Withdraw 3.Show Balance 4.Exit");
+            ch = sc.nextInt();
+            switch (ch) {
+                case 1:
+                    System.out.print("Enter Amount: ");
+                    obj.deposit(sc.nextDouble());
+                    break;
+                case 2:
+                    System.out.print("Enter Amount: ");
+                    obj.withdraw(sc.nextDouble());
+                    break;
+                case 3:
+                    obj.showBalance();
+                    break;
+            }
+        } while (ch != 4);
+    }
+}
+
+
+<!-- srt B -->
+
+import java.io.*;
+import java.util.*;
+
+class FileReverseCase {
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter file name: ");
+        String filename = sc.nextLine();
+        File file = new File(filename);
+        if (!file.exists()) {
+            System.out.println("File not found");
+            return;
+        }
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        ArrayList<String> lines = new ArrayList<>();
+        String line;
+        while ((line = br.readLine()) != null) {
+            lines.add(line);
+        }
+        br.close();
+        Collections.reverse(lines);
+        System.out.println("File content in reverse order with changed case:");
+        for (String l : lines) {
+            StringBuilder sb = new StringBuilder();
+            for (char c : l.toCharArray()) {
+                if (Character.isUpperCase(c))
+                    sb.append(Character.toLowerCase(c));
+                else if (Character.isLowerCase(c))
+                    sb.append(Character.toUpperCase(c));
+                else
+                    sb.append(c);
+            }
+            System.out.println(sb);
+        }
+    }
+}

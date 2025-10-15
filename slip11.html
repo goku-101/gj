@@ -1,0 +1,61 @@
+<!-- set A -->
+
+import java.util.*;
+
+interface Operation {
+    double PI = 3.142;
+    double volume();
+}
+
+class Cylinder implements Operation {
+    double radius, height;
+
+    Cylinder(double r, double h) {
+        radius = r;
+        height = h;
+    }
+
+    public double volume() {
+        return PI * radius * radius * height;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter radius: ");
+        double r = sc.nextDouble();
+        System.out.print("Enter height: ");
+        double h = sc.nextDouble();
+        Cylinder c = new Cylinder(r, h);
+        System.out.println("Volume: " + c.volume());
+    }
+}
+
+
+<!-- set B -->
+
+import java.util.*;
+
+class InvalidPasswordException extends Exception {
+    InvalidPasswordException(String msg) {
+        super(msg);
+    }
+}
+
+class LoginCheck {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter username: ");
+        String username = sc.nextLine();
+        System.out.print("Enter password: ");
+        String password = sc.nextLine();
+        try {
+            if (!username.equals(password)) {
+                throw new InvalidPasswordException("Invalid Password");
+            } else {
+                System.out.println("Login Successful");
+            }
+        } catch (InvalidPasswordException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}

@@ -1,0 +1,21 @@
+<!-- set A -->
+
+import java.util.*;
+
+interface SquareInterface {
+    int square(int n);
+}
+
+class SquareDemo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+        SquareInterface s = n -> n * n;
+        System.out.println("Square: " + s.square(num));
+    }
+}
+
+
+<!-- set B -->
+

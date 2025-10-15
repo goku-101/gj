@@ -1,0 +1,69 @@
+<!-- set A -->
+
+abstract class Bank {
+    abstract int getBalance();
+}
+
+class BankA extends Bank {
+    int getBalance() { return 100; }
+}
+
+class BankB extends Bank {
+    int getBalance() { return 150; }
+}
+
+class BankC extends Bank {
+    int getBalance() { return 200; }
+}
+
+class BankDemo {
+    public static void main(String[] args) {
+        Bank a = new BankA();
+        Bank b = new BankB();
+        Bank c = new BankC();
+
+        System.out.println("Bank A Balance: " + a.getBalance());
+        System.out.println("Bank B Balance: " + b.getBalance());
+        System.out.println("Bank C Balance: " + c.getBalance());
+    }
+}
+
+
+<!-- set B -->
+
+
+import java.awt.*;
+import java.awt.event.*;
+
+class ConcentricCircles extends Frame {
+    int x = -1, y = -1;
+
+    ConcentricCircles() {
+        setSize(500,500);
+        setVisible(true);
+        addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                x = e.getX();
+                y = e.getY();
+                repaint();
+            }
+        });
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+    }
+
+    public void paint(Graphics g) {
+        if (x != -1 && y != -1) {
+            g.drawOval(x-30, y-30, 60, 60);
+            g.drawOval(x-20, y-20, 40, 40);
+            g.drawOval(x-10, y-10, 20, 20);
+        }
+    }
+
+    public static void main(String[] args) {
+        new ConcentricCircles();
+    }
+}

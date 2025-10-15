@@ -1,0 +1,111 @@
+<!-- set A -->
+
+import java.io.*;
+import java.util.*;
+
+class FileCopy {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter source file name: ");
+        String sourceFile = sc.nextLine();
+        System.out.print("Enter destination file name: ");
+        String destFile = sc.nextLine();
+        try {
+            File src = new File(sourceFile);
+            if (!src.exists()) {
+                System.out.println("Source file not found");
+                return;
+            }
+            BufferedReader br = new BufferedReader(new FileReader(src));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(destFile));
+            String line;
+            while ((line = br.readLine()) != null) {
+                bw.write(line);
+                bw.newLine();
+            }
+            br.close();
+            bw.close();
+            System.out.println("File copied successfully");
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
+
+
+<!-- set B -->
+
+import java.util.*;
+
+class Account {
+    String custname;
+    int accno;
+
+    Account() {
+        custname = "";
+        accno = 0;
+    }
+
+    Account(String name, int no) {
+        custname = name;
+        accno = no;
+    }
+}
+
+class SavingAccount extends Account {
+    double savingbal;
+    double minbal;
+
+    SavingAccount() {
+        super();
+        savingbal = 0;
+        minbal = 0;
+    }
+
+    SavingAccount(String name, int no, double bal, double min) {
+        super(name, no);
+        savingbal = bal;
+        minbal = min;
+    }
+}
+
+class AccountDetail extends SavingAccount {
+    double depositamt;
+    double withdrawalamt;
+
+    AccountDetail(String name, int no, double bal, double min, double dep, double wit) {
+        super(name, no, bal, min);
+        depositamt = dep;
+        withdrawalamt = wit;
+        savingbal += depositamt;
+        savingbal -= withdrawalamt;
+    }
+
+    void display() {
+        System.out.println("Customer Name: " + custname);
+        System.out.println("Account No: " + accno);
+        System.out.println("Minimum Balance: " + minbal);
+        System.out.println("Deposit Amount: " + depositamt);
+        System.out.println("Withdrawal Amount: " + withdrawalamt);
+        System.out.println("Current Balance: " + savingbal);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter Name: ");
+        String name = sc.nextLine();
+        System.out.print("Enter Account No: ");
+        int no = sc.nextInt();
+        System.out.print("Enter Initial Balance: ");
+        double bal = sc.nextDouble();
+        System.out.print("Enter Minimum Balance: ");
+        double min = sc.nextDouble();
+        System.out.print("Enter Deposit Amount: ");
+        double dep = sc.nextDouble();
+        System.out.print("Enter Withdrawal Amount: ");
+        double wit = sc.nextDouble();
+
+        AccountDetail ad = new AccountDetail(name, no, bal, min, dep, wit);
+        ad.display();
+    }
+}

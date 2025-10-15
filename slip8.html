@@ -1,0 +1,66 @@
+<!-- set A -->
+
+import java.util.*;
+
+class Sphere {
+    double radius;
+
+    Sphere(double r) {
+        radius = r;
+    }
+
+    double surfaceArea() {
+        return 4 * 3.14 * radius * radius;
+    }
+
+    double volume() {
+        return (4.0 / 3) * 3.14 * radius * radius * radius;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter radius of sphere: ");
+        double r = sc.nextDouble();
+        Sphere s = new Sphere(r);
+        System.out.println("Surface Area: " + s.surfaceArea());
+        System.out.println("Volume: " + s.volume());
+    }
+}
+
+
+<!-- set B -->
+
+import java.awt.*;
+import java.awt.event.*;
+
+class MouseEventsDemo extends Frame implements MouseListener, MouseMotionListener {
+    TextField tf;
+
+    MouseEventsDemo() {
+        setLayout(new FlowLayout());
+        tf = new TextField(20);
+        add(tf);
+        addMouseListener(this);
+        addMouseMotionListener(this);
+        setSize(400, 300);
+        setVisible(true);
+    }
+
+    public void mouseClicked(MouseEvent e) {
+        tf.setText("Mouse Clicked at: " + e.getX() + ", " + e.getY());
+    }
+
+    public void mouseMoved(MouseEvent e) {
+        setTitle("Mouse Moved at: " + e.getX() + ", " + e.getY());
+    }
+
+    public void mousePressed(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {}
+    public void mouseDragged(MouseEvent e) {}
+
+    public static void main(String[] args) {
+        new MouseEventsDemo();
+    }
+}

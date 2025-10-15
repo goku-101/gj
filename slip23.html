@@ -1,0 +1,96 @@
+<!-- set A -->
+
+class MyNumber {
+    private int num;
+
+    MyNumber() {
+        this.num = 0;
+    }
+
+    MyNumber(int num) {
+        this.num = num;
+    }
+
+    boolean isNegative() { return num < 0; }
+    boolean isPositive() { return num > 0; }
+    boolean isZero() { return num == 0; }
+    boolean isOdd() { return num % 2 != 0; }
+    boolean isEven() { return num % 2 == 0; }
+
+    public static void main(String[] args) {
+        int val = 0;
+        if (args.length > 0) val = Integer.parseInt(args[0]);
+        MyNumber n = new MyNumber(val);
+        System.out.println("Number: " + val);
+        System.out.println("Positive: " + n.isPositive());
+        System.out.println("Negative: " + n.isNegative());
+        System.out.println("Zero: " + n.isZero());
+        System.out.println("Odd: " + n.isOdd());
+        System.out.println("Even: " + n.isEven());
+    }
+}
+
+
+<!-- set B -->
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+class CurrencyConverter extends JFrame implements ActionListener {
+    JTextField tSGD, tUSD, tEuro;
+    JButton convert;
+
+    CurrencyConverter() {
+        setLayout(new GridLayout(4,2,10,10));
+        add(new JLabel("Singapore Dollars:"));
+        tSGD = new JTextField();
+        add(tSGD);
+
+        add(new JLabel("US Dollars:"));
+        tUSD = new JTextField();
+        add(tUSD);
+
+        add(new JLabel("Euros:"));
+        tEuro = new JTextField();
+        add(tEuro);
+
+        convert = new JButton("Convert");
+        add(convert);
+        convert.addActionListener(this);
+
+        setSize(400,200);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        try {
+            if (!tSGD.getText().isEmpty()) {
+                double sgd = Double.parseDouble(tSGD.getText());
+                double usd = sgd / 1.41;
+                double euro = sgd * 0.65;
+                tUSD.setText(String.format("%.2f", usd));
+                tEuro.setText(String.format("%.2f", euro));
+            } else if (!tUSD.getText().isEmpty()) {
+                double usd = Double.parseDouble(tUSD.getText());
+                double sgd = usd * 1.41;
+                double euro = usd * 0.92;
+                tSGD.setText(String.format("%.2f", sgd));
+                tEuro.setText(String.format("%.2f", euro));
+            } else if (!tEuro.getText().isEmpty()) {
+                double euro = Double.parseDouble(tEuro.getText());
+                double usd = euro / 0.92;
+                double sgd = euro / 0.65;
+                tUSD.setText(String.format("%.2f", usd));
+                tSGD.setText(String.format("%.2f", sgd));
+            }
+        } catch(Exception ex) {
+            JOptionPane.showMessageDialog(this, "Invalid input");
+        }
+    }
+
+    public static void main(String[] args) {
+        new CurrencyConverter();
+    }
+}

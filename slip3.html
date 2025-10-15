@@ -1,0 +1,73 @@
+<!-- set A -->
+
+import java.util.*;
+
+class CitySort {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of cities: ");
+        int n = sc.nextInt();
+        String[] cities = new String[n];
+        System.out.println("Enter city names:");
+        for (int i = 0; i < n; i++) {
+            cities[i] = sc.next();
+        }
+        Arrays.sort(cities);
+        System.out.println("Cities in ascending order:");
+        for (String city : cities) {
+            System.out.println(city);
+        }
+    }
+}
+
+
+
+<!-- set B -->
+
+
+import java.util.*;
+
+class CovidException extends Exception {
+    CovidException(String msg) {
+        super(msg);
+    }
+}
+
+class Patient {
+    String patient_name;
+    int patient_age;
+    int patient_oxy_level;
+    int patient_HRCT_report;
+
+    Patient(String name, int age, int oxy, int hrct) {
+        this.patient_name = name;
+        this.patient_age = age;
+        this.patient_oxy_level = oxy;
+        this.patient_HRCT_report = hrct;
+    }
+
+    void check() throws CovidException {
+        if (patient_oxy_level < 95 && patient_HRCT_report > 10)
+            throw new CovidException("Patient is Covid Positive(+) and Need to Hospitalized");
+        else
+            System.out.println("Name: " + patient_name + "\nAge: " + patient_age + "\nOxygen: " + patient_oxy_level + "\nHRCT: " + patient_HRCT_report);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter name: ");
+        String name = sc.nextLine();
+        System.out.print("Enter age: ");
+        int age = sc.nextInt();
+        System.out.print("Enter oxygen level: ");
+        int oxy = sc.nextInt();
+        System.out.print("Enter HRCT report: ");
+        int hrct = sc.nextInt();
+        Patient p = new Patient(name, age, oxy, hrct);
+        try {
+            p.check();
+        } catch (CovidException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}

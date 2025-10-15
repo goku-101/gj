@@ -1,0 +1,87 @@
+<!-- set A -->
+
+import java.awt.*;
+
+class BorderLayoutDemo extends Frame {
+    BorderLayoutDemo() {
+        setLayout(new BorderLayout());
+        Button b1 = new Button("North");
+        Button b2 = new Button("South");
+        Button b3 = new Button("East");
+        Button b4 = new Button("West");
+        Button b5 = new Button("Center");
+        add(b1, BorderLayout.NORTH);
+        add(b2, BorderLayout.SOUTH);
+        add(b3, BorderLayout.EAST);
+        add(b4, BorderLayout.WEST);
+        add(b5, BorderLayout.CENTER);
+        setSize(400, 300);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new BorderLayoutDemo();
+    }
+}
+
+
+<!-- set B -->
+
+import java.util.*;
+
+class CricketPlayer {
+    String name;
+    int no_of_innings;
+    int no_of_times_notout;
+    int totalRuns;
+    double bat_avg;
+
+    CricketPlayer(String n, int innings, int notout, int runs) {
+        name = n;
+        no_of_innings = innings;
+        no_of_times_notout = notout;
+        totalRuns = runs;
+        bat_avg = 0;
+    }
+
+    static void avg(CricketPlayer[] players) {
+        for (CricketPlayer p : players) {
+            if (p.no_of_innings - p.no_of_times_notout != 0)
+                p.bat_avg = (double) p.totalRuns / (p.no_of_innings - p.no_of_times_notout);
+            else
+                p.bat_avg = p.totalRuns;
+        }
+    }
+
+    static void sort(CricketPlayer[] players) {
+        Arrays.sort(players, (p1, p2) -> Double.compare(p2.bat_avg, p1.bat_avg));
+    }
+
+    void display() {
+        System.out.println("Name: " + name + ", Innings: " + no_of_innings + ", NotOut: " + no_of_times_notout + ", Runs: " + totalRuns + ", Avg: " + bat_avg);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of players: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        CricketPlayer[] players = new CricketPlayer[n];
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter name: ");
+            String name = sc.nextLine();
+            System.out.print("Enter number of innings: ");
+            int inn = sc.nextInt();
+            System.out.print("Enter number of times not out: ");
+            int notout = sc.nextInt();
+            System.out.print("Enter total runs: ");
+            int runs = sc.nextInt();
+            sc.nextLine();
+            players[i] = new CricketPlayer(name, inn, notout, runs);
+        }
+        avg(players);
+        sort(players);
+        System.out.println("\nPlayers sorted by Batting Average:");
+        for (CricketPlayer p : players) p.display();
+    }
+}

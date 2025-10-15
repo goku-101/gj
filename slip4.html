@@ -1,0 +1,100 @@
+<!-- set A -->
+
+
+import java.util.*;
+
+class MatrixTranspose {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of rows: ");
+        int r = sc.nextInt();
+        System.out.print("Enter number of columns: ");
+        int c = sc.nextInt();
+        int[][] a = new int[r][c];
+        System.out.println("Enter elements:");
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                a[i][j] = sc.nextInt();
+            }
+        }
+        System.out.println("Transposed matrix:");
+        for (int i = 0; i < c; i++) {
+            for (int j = 0; j < r; j++) {
+                System.out.print(a[j][i] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+
+
+<!-- setB -->
+
+
+import java.awt.*;
+import java.awt.event.*;
+
+class LoginException extends Exception {
+    LoginException(String msg) {
+        super(msg);
+    }
+}
+
+class LoginScreen extends Frame implements ActionListener {
+    TextField t1, t2;
+    Label l1, l2, msg;
+    Button b1, b2;
+    int attempts = 0;
+
+    LoginScreen() {
+        setLayout(new FlowLayout());
+        l1 = new Label("Username:");
+        l2 = new Label("Password:");
+        t1 = new TextField(15);
+        t2 = new TextField(15);
+        t2.setEchoChar('*');
+        b1 = new Button("Login");
+        b2 = new Button("Clear");
+        msg = new Label("");
+        add(l1);
+        add(t1);
+        add(l2);
+        add(t2);
+        add(b1);
+        add(b2);
+        add(msg);
+        b1.addActionListener(this);
+        b2.addActionListener(this);
+        setSize(250,200);
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == b1) {
+            try {
+                if (!t1.getText().equals(t2.getText())) {
+                    attempts++;
+                    throw new LoginException("Invalid login (" + attempts + " attempts)");
+                } else {
+                    msg.setText("Login Successful");
+                }
+            } catch (LoginException ex) {
+                msg.setText(ex.getMessage());
+                if (attempts >= 3) {
+                    msg.setText("No more attempts");
+                    b1.setEnabled(false);
+                }
+            }
+        }
+        if (e.getSource() == b2) {
+            t1.setText("");
+            t2.setText("");
+            msg.setText("");
+        }
+    }
+
+    public static void main(String[] args) {
+        new LoginScreen();
+    }
+}

@@ -1,0 +1,128 @@
+<!-- set A -->
+
+import java.util.*;
+
+class ZeroException extends Exception {
+    ZeroException(String msg) {
+        super(msg);
+    }
+}
+
+class PrimeCheck {
+    static boolean isPrime(int n) {
+        if (n <= 1) return false;
+        for (int i = 2; i <= Math.sqrt(n); i++)
+            if (n % i == 0) return false;
+        return true;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+        try {
+            if (num == 0) throw new ZeroException("Number is 0");
+            if (isPrime(num)) System.out.println(num + " is Prime");
+            else System.out.println(num + " is Not Prime");
+        } catch (ZeroException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+
+
+<!-- set B -->
+
+
+package SY;
+
+public class SYMarks {
+    int ComputerTotal;
+    int MathsTotal;
+    int ElectronicsTotal;
+
+    public SYMarks(int c, int m, int e) {
+        ComputerTotal = c;
+        MathsTotal = m;
+        ElectronicsTotal = e;
+    }
+}
+
+
+
+package TY;
+
+public class TYMarks {
+    int Theory;
+    int Practicals;
+
+    public TYMarks(int th, int pr) {
+        Theory = th;
+        Practicals = pr;
+    }
+}
+
+
+
+import java.util.*;
+import SY.*;
+import TY.*;
+
+class Student {
+    int rollNumber;
+    String name;
+    SYMarks sy;
+    TYMarks ty;
+
+    Student(int r, String n, SYMarks s, TYMarks t) {
+        rollNumber = r;
+        name = n;
+        sy = s;
+        ty = t;
+    }
+
+    void displayResult() {
+        int totalComp = sy.ComputerTotal + ty.Theory + ty.Practicals;
+        char grade;
+        if (totalComp >= 70) grade = 'A';
+        else if (totalComp >= 60) grade = 'B';
+        else if (totalComp >= 50) grade = 'C';
+        else if (totalComp >= 40) grade = 'P';
+        else grade = 'F';
+
+        System.out.println("Roll No: " + rollNumber + ", Name: " + name);
+        System.out.println("SY Computer: " + sy.ComputerTotal + ", TY Theory: " + ty.Theory + ", TY Practicals: " + ty.Practicals);
+        System.out.println("Total Computer Marks: " + totalComp + ", Grade: " + grade);
+        System.out.println("--------------------------------------------------");
+    }
+}
+
+class StudentMain {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of students: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        Student[] students = new Student[n];
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter Roll Number: ");
+            int r = sc.nextInt();
+            sc.nextLine();
+            System.out.print("Enter Name: ");
+            String name = sc.nextLine();
+            System.out.print("Enter SY Marks (Computer, Maths, Electronics): ");
+            int c = sc.nextInt();
+            int m = sc.nextInt();
+            int e = sc.nextInt();
+            System.out.print("Enter TY Marks (Theory, Practicals): ");
+            int th = sc.nextInt();
+            int pr = sc.nextInt();
+            sc.nextLine();
+            SYMarks sy = new SYMarks(c, m, e);
+            TYMarks ty = new TYMarks(th, pr);
+            students[i] = new Student(r, name, sy, ty);
+        }
+        System.out.println("\nStudent Results:");
+        for (Student s : students) s.displayResult();
+    }
+}

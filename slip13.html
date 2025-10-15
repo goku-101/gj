@@ -1,0 +1,55 @@
+<!-- set A -->
+
+
+import java.io.*;
+import java.util.*;
+
+class FileStats {
+    public static void main(String[] args) throws IOException {
+        if (args.length == 0) {
+            System.out.println("Please provide file name");
+            return;
+        }
+        File file = new File(args[0]);
+        if (!file.exists()) {
+            System.out.println("File not found");
+            return;
+        }
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String line;
+        int lineCount = 0, wordCount = 0;
+        while ((line = br.readLine()) != null) {
+            lineCount++;
+            String[] words = line.trim().split("\\s+");
+            if (words.length == 1 && words[0].equals("")) continue;
+            wordCount += words.length;
+        }
+        br.close();
+        System.out.println("Number of lines: " + lineCount);
+        System.out.println("Number of words: " + wordCount);
+    }
+}
+
+
+<!-- set B -->
+
+
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+class DateTimeFormats {
+    public static void main(String[] args) {
+        Date now = new Date();
+        SimpleDateFormat df1 = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat df2 = new SimpleDateFormat("MM-dd-yyyy");
+        SimpleDateFormat df3 = new SimpleDateFormat("EEEE MMMM dd yyyy");
+        SimpleDateFormat df4 = new SimpleDateFormat("EEE MMMM dd HH:mm:ss z yyyy");
+        SimpleDateFormat df5 = new SimpleDateFormat("dd/MM/yy hh:mm:ss a Z");
+
+        System.out.println("Current date is : " + df1.format(now));
+        System.out.println("Current date is : " + df2.format(now));
+        System.out.println("Current date is : " + df3.format(now));
+        System.out.println("Current date and time is : " + df4.format(now));
+        System.out.println("Current date and time is : " + df5.format(now));
+    }
+}

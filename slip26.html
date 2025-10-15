@@ -1,0 +1,122 @@
+<!-- set A -->
+
+import java.util.*;
+
+class Item {
+    int item_number;
+    String item_name;
+    double item_price;
+    static int count = 0;
+
+    Item() {
+        this.item_number = 0;
+        this.item_name = "";
+        this.item_price = 0;
+        count++;
+    }
+
+    Item(int num, String name, double price) {
+        this.item_number = num;
+        this.item_name = name;
+        this.item_price = price;
+        count++;
+    }
+
+    static void displayCount() {
+        System.out.println("Total objects created: " + count);
+    }
+
+    void display() {
+        System.out.println("Item Number: " + item_number + ", Name: " + item_name + ", Price: " + item_price);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of items: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        Item[] items = new Item[n];
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter Item Number: ");
+            int num = sc.nextInt();
+            sc.nextLine();
+            System.out.print("Enter Item Name: ");
+            String name = sc.nextLine();
+            System.out.print("Enter Item Price: ");
+            double price = sc.nextDouble();
+            sc.nextLine();
+            items[i] = new Item(num, name, price);
+            items[i].display();
+            Item.displayCount();
+        }
+    }
+}
+
+
+<!-- set B -->
+
+import java.io.*;
+import java.util.*;
+import java.time.*;
+import java.time.format.*;
+
+class Donor implements Serializable {
+    String name, address, contactnumber, bloodgroup, lastDonation;
+    int age;
+
+    Donor(String name, int age, String address, String contactnumber, String bloodgroup, String lastDonation) {
+        this.name = name;
+        this.age = age;
+        this.address = address;
+        this.contactnumber = contactnumber;
+        this.bloodgroup = bloodgroup;
+        this.lastDonation = lastDonation;
+    }
+
+    void display() {
+        System.out.println("Name: " + name + ", Age: " + age + ", Address: " + address + ", Contact: " + contactnumber + ", Blood Group: " + bloodgroup + ", Last Donation: " + lastDonation);
+    }
+}
+
+class DonorFileDemo {
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of donors: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+        Donor[] donors = new Donor[n];
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter Name: ");
+            String name = sc.nextLine();
+            System.out.print("Enter Age: ");
+            int age = sc.nextInt();
+            sc.nextLine();
+            System.out.print("Enter Address: ");
+            String address = sc.nextLine();
+            System.out.print("Enter Contact Number: ");
+            String contact = sc.nextLine();
+            System.out.print("Enter Blood Group: ");
+            String blood = sc.nextLine();
+            System.out.print("Enter Date of Last Donation (yyyy-MM-dd): ");
+            String lastDonation = sc.nextLine();
+            donors[i] = new Donor(name, age, address, contact, blood, lastDonation);
+        }
+
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("donors.dat"));
+        for (Donor d : donors) out.writeObject(d);
+        out.close();
+
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream("donors.dat"));
+        System.out.println("\nEligible Donors (A+ve, not donated in last 6 months):");
+        LocalDate sixMonthsAgo = LocalDate.now().minusMonths(6);
+        try {
+            while (true) {
+                Donor d = (Donor) in.readObject();
+                LocalDate lastDate = LocalDate.parse(d.lastDonation, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                if (d.bloodgroup.equalsIgnoreCase("A+ve") && lastDate.isBefore(sixMonthsAgo)) d.display();
+            }
+        } catch (EOFException e) {
+        }
+        in.close();
+    }
+}

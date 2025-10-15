@@ -1,0 +1,103 @@
+<!-- set A -->
+
+import java.util.*;
+
+class Continent {
+    String continentName;
+
+    Continent(String name) {
+        continentName = name;
+    }
+}
+
+class Country extends Continent {
+    String countryName;
+
+    Country(String contName, String cName) {
+        super(contName);
+        countryName = cName;
+    }
+}
+
+class State extends Country {
+    String stateName;
+    String placeName;
+
+    State(String contName, String cName, String sName, String pName) {
+        super(contName, cName);
+        stateName = sName;
+        placeName = pName;
+    }
+
+    void display() {
+        System.out.println("Place: " + placeName);
+        System.out.println("State: " + stateName);
+        System.out.println("Country: " + countryName);
+        System.out.println("Continent: " + continentName);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter Continent: ");
+        String cont = sc.nextLine();
+        System.out.print("Enter Country: ");
+        String country = sc.nextLine();
+        System.out.print("Enter State: ");
+        String state = sc.nextLine();
+        System.out.print("Enter Place: ");
+        String place = sc.nextLine();
+        State s = new State(cont, country, state, place);
+        s.display();
+    }
+}
+
+
+<!-- set B -->
+
+package Operation;
+
+public class Addition {
+    public int add(int a, int b) {
+        return a + b;
+    }
+
+    public float subtract(float a, float b) {
+        return a - b;
+    }
+}
+
+
+package Operation;
+
+public class Maximum {
+    public int max(int a, int b) {
+        return (a > b) ? a : b;
+    }
+}
+
+
+import Operation.*;
+import java.util.*;
+
+class MainOperation {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Addition addObj = new Addition();
+        Maximum maxObj = new Maximum();
+
+        System.out.print("Enter two integers for addition: ");
+        int x = sc.nextInt();
+        int y = sc.nextInt();
+        System.out.println("Sum: " + addObj.add(x, y));
+
+        System.out.print("Enter two float values for subtraction: ");
+        float f1 = sc.nextFloat();
+        float f2 = sc.nextFloat();
+        System.out.println("Difference: " + addObj.subtract(f1, f2));
+
+        System.out.print("Enter two integers to find maximum: ");
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        System.out.println("Maximum: " + maxObj.max(a, b));
+    }
+}

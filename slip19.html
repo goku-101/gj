@@ -1,0 +1,58 @@
+<!-- set A -->
+
+import java.util.*;
+
+class DiagonalSum {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of rows: ");
+        int r = sc.nextInt();
+        System.out.print("Enter number of columns: ");
+        int c = sc.nextInt();
+        int[][] arr = new int[r][c];
+        System.out.println("Enter array elements:");
+        for (int i = 0; i < r; i++)
+            for (int j = 0; j < c; j++)
+                arr[i][j] = sc.nextInt();
+
+        int sum = 0;
+        for (int i = 0; i < Math.min(r, c); i++)
+            sum += arr[i][i];
+
+        System.out.println("Sum of diagonal elements: " + sum);
+    }
+}
+
+
+<!-- set B -->
+
+import javax.swing.*;
+import java.awt.event.*;
+
+class ComboBoxDemo extends JFrame implements ActionListener {
+    JComboBox<String> cb;
+    JTextField tf;
+
+    ComboBoxDemo() {
+        setLayout(null);
+        String[] subjects = {"Data Mining", "Web Technology", "Cryptography", "Blockchain", "Machine Learning"};
+        cb = new JComboBox<>(subjects);
+        cb.setBounds(50,50,150,30);
+        cb.addActionListener(this);
+        tf = new JTextField();
+        tf.setBounds(50,100,150,30);
+        add(cb);
+        add(tf);
+        setSize(300,200);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        tf.setText(cb.getSelectedItem().toString());
+    }
+
+    public static void main(String[] args) {
+        new ComboBoxDemo();
+    }
+}

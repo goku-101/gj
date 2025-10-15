@@ -1,0 +1,65 @@
+<!-- set A -->
+
+import java.util.*;
+
+interface CubeInterface {
+    int cube(int n);
+}
+
+class CubeDemo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+        CubeInterface c = n -> n * n * n;
+        System.out.println("Cube: " + c.cube(num));
+    }
+}
+
+
+<!-- set B -->
+
+package student;
+
+import java.util.Scanner;
+
+public class StudentPer {
+    int[] marks = new int[6];
+    double percentage;
+
+    public void acceptMarks() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter marks of 6 subjects:");
+        for (int i = 0; i < 6; i++) {
+            marks[i] = sc.nextInt();
+        }
+    }
+
+    public void calculatePercentage() {
+        int sum = 0;
+        for (int m : marks) sum += m;
+        percentage = sum / 6.0;
+    }
+
+    public void displayPercentage() {
+        System.out.println("Percentage: " + percentage);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        StudentInfo s = new StudentInfo();
+        System.out.print("Enter Roll No: ");
+        s.rollno = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Enter Name: ");
+        s.name = sc.nextLine();
+        System.out.print("Enter Class: ");
+        s.sclass = sc.nextLine();
+        s.displayInfo();
+
+        StudentPer sp = new StudentPer();
+        sp.acceptMarks();
+        sp.calculatePercentage();
+        sp.displayPercentage();
+    }
+}

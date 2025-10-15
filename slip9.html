@@ -1,0 +1,88 @@
+<!-- set A -->
+
+import java.util.*;
+
+class Clock {
+    int hours, minutes, seconds;
+    String period;
+
+    Clock(int h, int m, int s) {
+        if (h >= 0 && h <= 23 && m >= 0 && m <= 59 && s >= 0 && s <= 59) {
+            hours = h;
+            minutes = m;
+            seconds = s;
+            setPeriod();
+        } else {
+            System.out.println("Invalid Time");
+        }
+    }
+
+    void setPeriod() {
+        if (hours >= 12) {
+            period = "PM";
+            if (hours > 12) hours -= 12;
+        } else {
+            period = "AM";
+            if (hours == 0) hours = 12;
+        }
+    }
+
+    void display() {
+        System.out.printf("Time: %02d:%02d:%02d %s\n", hours, minutes, seconds, period);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter hours: ");
+        int h = sc.nextInt();
+        System.out.print("Enter minutes: ");
+        int m = sc.nextInt();
+        System.out.print("Enter seconds: ");
+        int s = sc.nextInt();
+        Clock c = new Clock(h, m, s);
+        c.display();
+    }
+}
+
+
+<!-- srtB -->
+
+interface Marker {}
+
+class Product implements Marker {
+    int product_id;
+    String product_name;
+    double product_cost;
+    int product_quantity;
+    static int count = 0;
+
+    Product() {
+        product_id = 0;
+        product_name = "";
+        product_cost = 0;
+        product_quantity = 0;
+        count++;
+    }
+
+    Product(int id, String name, double cost, int qty) {
+        product_id = id;
+        product_name = name;
+        product_cost = cost;
+        product_quantity = qty;
+        count++;
+    }
+
+    void display() {
+        System.out.println("ID: " + product_id + ", Name: " + product_name + ", Cost: " + product_cost + ", Quantity: " + product_quantity);
+    }
+
+    public static void main(String[] args) {
+        Product p1 = new Product();
+        Product p2 = new Product(101, "Laptop", 55000, 5);
+        Product p3 = new Product(102, "Mouse", 500, 10);
+        p1.display();
+        p2.display();
+        p3.display();
+        System.out.println("Total objects: " + Product.count);
+    }
+}
